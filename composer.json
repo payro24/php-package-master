@@ -1,0 +1,24 @@
+{
+    "name": "gateway/payro24",
+    "description": "Payment gateway on payro24.ir",
+    "license": "GPL-2.0-only",
+    "authors": [
+        {
+            "name": "payro24",
+            "email": "info@payro24.ir"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "guzzlehttp/guzzle": "^6.2"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "6.3.*",
+        "satooshi/php-coveralls": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "payro24\\": "src/"
+        }
+    }
+}
