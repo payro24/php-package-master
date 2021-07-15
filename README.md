@@ -39,7 +39,6 @@ $ composer install
 
 ###verify.php
 
-
 ```php 
     //با استفاده از این متود میتوانید بررسی کنید که آیا اطلاعات برگشتی از پیرو دریافت شده یا خیر
      if ($payro->receiveData()) {
@@ -49,6 +48,7 @@ $ composer install
 
     } else echo 'no data to validation';
 ```
+
 
 
 
