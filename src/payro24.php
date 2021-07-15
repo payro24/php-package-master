@@ -1,33 +1,20 @@
 <?php
 
-/**
- * @file
- * Methods of payro24 services.
- * 
- * PHP version ^5.6
- * 
- * @author  Amir Koulivand <amir@koulivand.ir>
- * @copyright   2016-2018 The payro24 group
- */
-
 namespace payro24;
 
-use payro24\Bin\RestService;
+use payro24\payro\RestService;
 
 define('PENDING', 1);
 define('RETURNED', 2);
 define('FAILED', 3);
 define('SUCCESS', 100);
 
-/**
- * payro24 payment and inquiry service.
- */
 class payro24
 {
     private $service;
     private $trackId;
     private $data;
-    private $paymentPath = 'https://www.payro24.ir/p/ws/';
+    private $paymentPath = 'https://www.payro24.ir/link/';
 
     public function __construct($apiKey, $endpoint, $sandbox = false)
     {
@@ -51,7 +38,7 @@ class payro24
      *
      * @return array|@paymentPath
      */
-    public function payment($callback, $orderId, $amount, $name = null, $phone = null, $description = null)
+    public function payment($callback, $orderId, $amount, $name = null, $mail = null, $phone = null, $description = null)
     {
         $data = [
             'amount'    => $amount,
@@ -62,14 +49,19 @@ class payro24
         if (!is_null($name) && !empty($name)) {
             $data['name'] = $name;
         }
+        if (!is_null($mail) && !empty($mail)) {
+            $data['mail'] = $mail;
+        }
         if (!is_null($phone) && !empty($phone)) {
             $data['phone'] = $phone;
         }
         if (!is_null($description) && !empty($description)) {
-            $data['description'] = $description;
+            $data['desc'] = $description;
         }
 
         $result = $this->service->paymentRequest($data);
+
+        var_dump($result);
 
         if ($result['Status'] == 'success') {
             if (isset($result['Result'])) {
@@ -117,7 +109,7 @@ class payro24
 
     /**
      * Check received data on payment callback.
-     * 
+     *
      * @return boolean
      */
     public function receiveData()
@@ -134,7 +126,7 @@ class payro24
 
     /**
      * Get track id of payment.
-     * 
+     *
      * @return string
      */
     public function getTrackId()
